@@ -1,7 +1,8 @@
 FSLineChart
 ===========
 
-扩展：
+根据项目扩展
+---
 <img src="Screenshots/style.png" width="320px" />&nbsp;
 
 
