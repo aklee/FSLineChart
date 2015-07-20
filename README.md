@@ -1,6 +1,10 @@
 FSLineChart
 ===========
 
+扩展：
+
+
+
 A line chart library for iOS.
 
 Screenshots
