@@ -2,7 +2,7 @@ FSLineChart
 ===========
 
 扩展：
-
+<img src="Screenshots/style.png" width="320px" />&nbsp;
 
 
 A line chart library for iOS.
