@@ -1,0 +1,11 @@
+//
+//  PrefixHeader.pch
+//  FSLineChart
+//
+//  Created by ak on 15/7/20.
+//  Copyright (c) 2015年 Arthur GUIBERT. All rights reserved.
+//
+
+
+#define kUIScreenWidth          [UIScreen mainScreen].bounds.size.width
+#define CORLOC(c,g,b,a) [UIColor colorWithRed:(c)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]

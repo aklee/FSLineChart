@@ -20,7 +20,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^FSLineChartClick)(int index);
 @interface FSLineChart : UIView
 
 // Block definition for getting a label for a set index (use case: date, units,...)
@@ -91,5 +91,11 @@ typedef NS_ENUM(NSInteger, ValueLabelPositionType) {
 
 // Clear all rendered data from the view.
 - (void)clearChartData;
+
+
+
+//ak 自定义
+@property (nonatomic, strong) UIColor* selectCircleColor;
+@property(nonatomic,copy)FSLineChartClick chartClick;
 
 @end

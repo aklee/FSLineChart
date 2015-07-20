@@ -32,7 +32,10 @@
 @property (nonatomic) CGFloat max;
 @property (nonatomic) CGMutablePathRef initialPath;
 @property (nonatomic) CGMutablePathRef newPath;
-
+//自定义
+@property(nonatomic,weak) CAShapeLayer* customerLineLayer;
+@property(nonatomic,weak) CAShapeLayer* customerCircleLayer;
+@property(nonatomic,weak) UILabel* customerLabel;
 @end
 
 @implementation FSLineChart
@@ -67,8 +70,134 @@
     _layers = [NSMutableArray array];
     self.backgroundColor = [UIColor whiteColor];
     [self setDefaultParameters];
+    
+    UITapGestureRecognizer*tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapChart:)];
+    [self addGestureRecognizer:tap];
 }
+-(void)tapChart:(UITapGestureRecognizer*)tap{
+    
+   CGPoint touchP= [tap locationInView:self];
+    NSLog(@"%@",NSStringFromCGPoint(touchP));
+    
+    
+    CGFloat minBound = [self minVerticalBound];
+    CGFloat maxBound = [self maxVerticalBound];
+    CGFloat scale = _axisHeight / (maxBound - minBound);
+    
+    
+    //测试：输出所有数据点坐标
+//    for(int i=0;i<_data.count ;i++) {
+//        
+//        CGPoint p = [self getPointForIndex:i withScale:scale];
+//        NSLog(@"%f-%f",p.x,p.y);
+//    }
+    
+    NSLog(@"=============");
+    
+    if (self.customerCircleLayer) {
+        [self.customerLineLayer removeFromSuperlayer];
+        [self.customerCircleLayer removeFromSuperlayer];
+    }
+    if ( self.customerLabel) {
+        [self.customerLabel removeFromSuperview];
+    }
+    for(int i=0;i<_data.count;i++) {
+        
+        CGPoint p = [self getPointForIndex:i withScale:scale];
+        int curIndex=0;
+        if (touchP.x<=p.x) {
 
+            CGPoint focusP; NSNumber* number;
+            CGPoint preP=[self getPointForIndex:i-1 withScale:scale];
+            curIndex=i;
+            if ((p.x-touchP.x)>(touchP.x-preP.x)) {
+                focusP=preP;
+                  number= _data[i-1];
+                curIndex=i-1;
+            }
+            else{
+                focusP=p;
+                  number= _data[i];
+            }
+            NSLog(@"%f-%f idx:%d",focusP.x,focusP.y,curIndex);
+            //添加提示框
+            //信息提示框的位移偏量
+            float offsetX=15,offsetY=-18;
+            
+            NSString*text=[NSString stringWithFormat:@"%@",number];
+            CGSize textSize= [text sizeWithAttributes:@{NSFontAttributeName:_valueLabelFont}];
+            
+            UILabel *label=[[UILabel alloc]init];
+            CGRect frame=  CGRectMake(focusP.x+offsetX, focusP.y+offsetY, textSize.width+5, textSize.height+5);
+            if ((focusP.y+offsetY)>self.bounds.size.height) {
+                
+            }
+            
+            if ((focusP.x+offsetX)>=self.bounds.size.width) {
+                frame.origin.x=focusP.x-offsetX-textSize.width;
+            }
+            label.frame=frame;
+//            label.backgroundColor=[UIColor orangeColor];
+            label.text=text;
+            label.font = _valueLabelFont;
+            label.textColor = _valueLabelTextColor;
+            label.textAlignment = NSTextAlignmentCenter;
+            label.backgroundColor = _valueLabelBackgroundColor;
+            label.layer.cornerRadius=4;
+            label.layer.masksToBounds=YES;
+            label.layer.borderColor=_color.CGColor;
+            label.layer.borderWidth=1;
+            [self addSubview:label];
+            self.customerLabel=label;
+            
+            //添加线
+//            UIBezierPath *noFill = [self getLinePath:0 withSmoothing:_bezierSmoothing close:YES];
+
+            UIBezierPath* fill = [UIBezierPath bezierPath];
+            [fill moveToPoint:CGPointMake(focusP.x, _margin)];
+            [fill addLineToPoint:CGPointMake(focusP.x, self.bounds.size.height-2)];
+            
+
+            CAShapeLayer* fillLayer = [CAShapeLayer layer];
+            fillLayer.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y + minBound * scale, self.bounds.size.width, self.bounds.size.height);
+            fillLayer.bounds = self.bounds;
+            fillLayer.path = fill.CGPath;
+            fillLayer.strokeColor = _color.CGColor;
+            fillLayer.fillColor = [UIColor whiteColor].CGColor;
+            fillLayer.lineWidth = 1;
+            fillLayer.lineJoin = kCALineJoinRound;
+
+            [self.layer addSublayer:fillLayer];
+            [self.layers addObject:fillLayer];
+            self.customerLineLayer=fillLayer;
+            
+            //添加环形
+            UIBezierPath* circle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(focusP.x - _dataPointRadius, focusP.y - _dataPointRadius, _dataPointRadius * 2, _dataPointRadius * 2)];
+            
+            CAShapeLayer *fillCircleLayer = [CAShapeLayer layer];
+            fillCircleLayer.frame = CGRectMake(p.x, p.y, _dataPointRadius, _dataPointRadius);
+            fillCircleLayer.bounds = CGRectMake(p.x, p.y, _dataPointRadius, _dataPointRadius);
+            fillCircleLayer.path = circle.CGPath;
+            fillCircleLayer.strokeColor = _selectCircleColor.CGColor;
+            fillCircleLayer.fillColor = [UIColor whiteColor].CGColor;
+            //设置环形宽度
+            fillCircleLayer.lineWidth = 2;
+            fillCircleLayer.lineJoin = kCALineJoinRound;
+            
+            [self.layer addSublayer:fillCircleLayer];
+            [self.layers addObject:fillCircleLayer];
+            self.customerCircleLayer=fillCircleLayer;
+            
+            
+            //点击block
+            if (self.chartClick) {
+                self.chartClick(curIndex);
+            }
+            return;
+        }
+    }
+    
+}
 - (void)setDefaultParameters
 {
     _color = [UIColor fsLightBlue];
@@ -101,6 +230,9 @@
     _valueLabelTextColor = [UIColor grayColor];
     _valueLabelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
     _valueLabelPosition = ValueLabelRight;
+    
+//    ak 补充
+    _selectCircleColor=[UIColor blueColor];
 }
 
 - (void)setChartData:(NSArray *)chartData
@@ -133,7 +265,7 @@
             }
         }
     }
-    
+
     if(_labelForIndex) {
         for(int i=0;i<_horizontalGridStep + 1;i++) {
             UILabel* label = [self createLabelForIndex:i];
@@ -256,7 +388,8 @@
             
             CGPoint point = CGPointMake((1 + i) * _axisWidth / _horizontalGridStep * scale + _margin, _margin);
             
-            CGContextMoveToPoint(ctx, point.x, point.y);
+            //注释这句代码 可以取消x轴绘制
+//            CGContextMoveToPoint(ctx, point.x, point.y);
             CGContextAddLineToPoint(ctx, point.x, _axisHeight + _margin);
             CGContextStrokePath(ctx);
             
@@ -280,7 +413,7 @@
             }
             
             CGPoint point = CGPointMake(_margin, (i) * _axisHeight / _verticalGridStep + _margin);
-            
+  
             CGContextMoveToPoint(ctx, point.x, point.y);
             CGContextAddLineToPoint(ctx, _axisWidth + _margin, point.y);
             CGContextStrokePath(ctx);
@@ -380,7 +513,8 @@
         fillLayer.path = circle.CGPath;
         fillLayer.strokeColor = _dataPointColor.CGColor;
         fillLayer.fillColor = _dataPointBackgroundColor.CGColor;
-        fillLayer.lineWidth = 1;
+//       设置环形宽度
+        fillLayer.lineWidth = 2;
         fillLayer.lineJoin = kCALineJoinRound;
         
         [self.layer addSublayer:fillLayer];
@@ -564,7 +698,7 @@
                 m.x = (p.x - previousPoint.x) / 2;
                 m.y = (p.y - previousPoint.y) / 2;
             }
-            
+
             controlPoint[1].x = p.x - m.x * _bezierSmoothingTension;
             controlPoint[1].y = p.y - m.y * _bezierSmoothingTension;
             

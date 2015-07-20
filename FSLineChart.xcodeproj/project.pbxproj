@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		413D26F71B5CE3FD00EB83C7 /* ProductCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D26E51B5CE3FD00EB83C7 /* ProductCViewController.m */; };
+		413D26F81B5CE3FD00EB83C7 /* ProductCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413D26E61B5CE3FD00EB83C7 /* ProductCViewController.xib */; };
+		413D26FC1B5CE3FD00EB83C7 /* ProductChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 413D26EE1B5CE3FD00EB83C7 /* ProductChartView.m */; };
+		413D26FD1B5CE3FD00EB83C7 /* ProductChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413D26EF1B5CE3FD00EB83C7 /* ProductChartView.xib */; };
 		8EA19AEC19DB55E9005F4BD1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA19AEB19DB55E9005F4BD1 /* main.m */; };
 		8EA19AEF19DB55E9005F4BD1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA19AEE19DB55E9005F4BD1 /* AppDelegate.m */; };
 		8EA19AF219DB55E9005F4BD1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA19AF119DB55E9005F4BD1 /* ViewController.m */; };
@@ -29,6 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		413D26E41B5CE3FD00EB83C7 /* ProductCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCViewController.h; sourceTree = "<group>"; };
+		413D26E51B5CE3FD00EB83C7 /* ProductCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCViewController.m; sourceTree = "<group>"; };
+		413D26E61B5CE3FD00EB83C7 /* ProductCViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCViewController.xib; sourceTree = "<group>"; };
+		413D26ED1B5CE3FD00EB83C7 /* ProductChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductChartView.h; sourceTree = "<group>"; };
+		413D26EE1B5CE3FD00EB83C7 /* ProductChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductChartView.m; sourceTree = "<group>"; };
+		413D26EF1B5CE3FD00EB83C7 /* ProductChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductChartView.xib; sourceTree = "<group>"; };
+		413D27011B5CE4CE00EB83C7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8EA19AE619DB55E9005F4BD1 /* FSLineChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FSLineChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EA19AEA19DB55E9005F4BD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EA19AEB19DB55E9005F4BD1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -66,6 +77,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		413D26E01B5CE3FD00EB83C7 /* ProductC */ = {
+			isa = PBXGroup;
+			children = (
+				413D26EC1B5CE3FD00EB83C7 /* Views */,
+				413D26E41B5CE3FD00EB83C7 /* ProductCViewController.h */,
+				413D26E51B5CE3FD00EB83C7 /* ProductCViewController.m */,
+				413D26E61B5CE3FD00EB83C7 /* ProductCViewController.xib */,
+			);
+			path = ProductC;
+			sourceTree = "<group>";
+		};
+		413D26EC1B5CE3FD00EB83C7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				413D26ED1B5CE3FD00EB83C7 /* ProductChartView.h */,
+				413D26EE1B5CE3FD00EB83C7 /* ProductChartView.m */,
+				413D26EF1B5CE3FD00EB83C7 /* ProductChartView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8EA19ADD19DB55E9005F4BD1 = {
 			isa = PBXGroup;
 			children = (
@@ -87,10 +119,12 @@
 		8EA19AE819DB55E9005F4BD1 /* FSLineChart */ = {
 			isa = PBXGroup;
 			children = (
+				413D26E01B5CE3FD00EB83C7 /* ProductC */,
 				8EA19B1219DB569A005F4BD1 /* FSLineChart */,
 				8EA19AED19DB55E9005F4BD1 /* AppDelegate.h */,
 				8EA19AEE19DB55E9005F4BD1 /* AppDelegate.m */,
 				8EA19AF019DB55E9005F4BD1 /* ViewController.h */,
+				413D27011B5CE4CE00EB83C7 /* PrefixHeader.pch */,
 				8EA19AF119DB55E9005F4BD1 /* ViewController.m */,
 				8EA19AF319DB55E9005F4BD1 /* Main.storyboard */,
 				8EA19AF619DB55E9005F4BD1 /* Images.xcassets */,
@@ -218,8 +252,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EA19AF519DB55E9005F4BD1 /* Main.storyboard in Resources */,
+				413D26F81B5CE3FD00EB83C7 /* ProductCViewController.xib in Resources */,
 				8EA19AFA19DB55E9005F4BD1 /* LaunchScreen.xib in Resources */,
 				8EA19AF719DB55E9005F4BD1 /* Images.xcassets in Resources */,
+				413D26FD1B5CE3FD00EB83C7 /* ProductChartView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,8 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EA19AF219DB55E9005F4BD1 /* ViewController.m in Sources */,
+				413D26FC1B5CE3FD00EB83C7 /* ProductChartView.m in Sources */,
 				8EA19AEF19DB55E9005F4BD1 /* AppDelegate.m in Sources */,
 				8EA19AEC19DB55E9005F4BD1 /* main.m in Sources */,
+				413D26F71B5CE3FD00EB83C7 /* ProductCViewController.m in Sources */,
 				8EA19B1119DB5696005F4BD1 /* FSLineChart.m in Sources */,
 				8EA19B1519DB56E8005F4BD1 /* UIColor+FSPalette.m in Sources */,
 			);
@@ -363,6 +401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = FSLineChart/PrefixHeader.pch;
 				INFOPLIST_FILE = FSLineChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -373,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = FSLineChart/PrefixHeader.pch;
 				INFOPLIST_FILE = FSLineChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
