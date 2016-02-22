@@ -3,7 +3,7 @@ FSLineChart
 
 根据项目扩展
 ---
-<img src="Screenshots/style.png" width="320px" />&nbsp;
+<img src="Screenshots/demo.gif" width="320px" />&nbsp;
 
 
 A line chart library for iOS.
